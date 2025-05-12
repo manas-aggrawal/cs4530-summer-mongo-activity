@@ -6,7 +6,7 @@ import app from "../src/app";
 import Transcript from "../src/models/transcript";
 import CourseGrade from "../src/models/course";
 import { CourseGradeDocument } from "../src/types/course.type";
-import { MongoTranscriptService } from "../src/services/mongo-transcript-service";
+import { MongoTranscriptService } from "../src/services/mongo-transcript.service";
 
 // MongoDB in-memory server instance for testing
 let mongoServer: MongoMemoryServer;

@@ -1,6 +1,6 @@
 import express from "express";
 import type { Request, Response, NextFunction } from "express";
-import { MongoTranscriptService } from "./services/mongo-transcript-service";
+import { MongoTranscriptService } from "./services/mongo-transcript.service";
 
 // Create Express app
 const app = express();

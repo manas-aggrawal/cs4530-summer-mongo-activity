@@ -16,9 +16,6 @@ export class MongoTranscriptService implements TranscriptService {
     this.initializeLastID();
   }
 
-  /**
-   *
-   */
   private async initializeLastID(): Promise<void> {
     // Find the highest studentId in the database
     const highestStudent = await Transcript.findOne()
@@ -35,11 +32,9 @@ export class MongoTranscriptService implements TranscriptService {
   async addStudent(newName: string): Promise<number> {
     const newID = this.lastID++;
 
-    await Transcript.create({
-      studentId: newID,
-      studentName: newName,
-      grades: [],
-    });
+    // TASK 4:
+    // YOU NEED TO CREATE STUDENT IN THE DATABASE.
+    // THINK ABOUT IN WHICH MODEL/DOCUMENT YOU WILL CREATE THAT AND HOW
 
     return newID;
   }
@@ -63,10 +58,13 @@ export class MongoTranscriptService implements TranscriptService {
    * @returns TranscriptDocument
    */
   async getTranscript(id: number): Promise<TranscriptDocument> {
-    const transcript = await Transcript.findOne({ studentId: id })
-      .select(selectAndPopulateArgsForGetTranscript.select)
-      .populate(selectAndPopulateArgsForGetTranscript.populate)
-      .exec();
+    // TASK 5:
+    // YOU NEED TO BE SELECTIVE ABOUT WHICH KEYS YOU WANT FROM THE TRANSCRIPT DOCUMENT
+    // IN THE DATABASE AND ONLY SELECT THOSE.
+
+    // ALSO, YOU NEED TO FIGURE OUT HOW TO POPULATE THE SOME OF THE FIELDS
+    // WHICH SHOULD BE PRESENT IN A TRANSCRIPT BUT ARE MISSING.
+    const transcript = await Transcript.findOne({ studentId: id }).exec();
 
     if (!transcript) {
       throw new Error("unknown ID");
@@ -94,11 +92,9 @@ export class MongoTranscriptService implements TranscriptService {
       grade,
     });
 
-    // Add the grade to the transcript using findOneAndUpdate with $push
-    await Transcript.findOneAndUpdate(
-      { studentId: id },
-      { $push: { grades: newGrade._id } }
-    ).exec();
+    // TASK 6:
+    // FIGURE OUT HOW TO FIND AND UPDATE THE TRANSCRIPT WITH NEW GRADE FOR A NEW COURSE AGAINST AN EXISTING STUDENT
+    // HINT: YOU'LL NEED SOMETHING CALLED "$push" INSIDE YOUR FIND & UPDATE METHOD FOR THE GRADES
   }
 
   /**
